@@ -5,12 +5,16 @@ const Header = (props) => (
 // const Header = props => <h1>{props.course}</h1>
 // but I feel it is more readable and consistent like this.
 
+const Part = (props) => ( //returns the part title and excersizes on a new line
+  <p>{props.part.title} {props.part.exercises}</p>
+)
+
 const Content = (props) => {
-  return (    //return the title and number of each part on its own line.
+  return (    //calls Part for each set in the array
   <div>    
-    <p>{props.part[0].title} {props.part[0].exercises}</p>
-    <p>{props.part[1].title} {props.part[1].exercises}</p>
-    <p>{props.part[2].title} {props.part[2].exercises}</p>
+    <Part part={props.part[0]}/> 
+    <Part part={props.part[1]}/> 
+    <Part part={props.part[2]}/> 
   </div>
   )
 }
@@ -32,7 +36,7 @@ const App = () => {
     {title: 'Using props to pass data', exercises: 7}, 
     {title: 'State of a component', exercises: 14}
   ]
-
+  
   return (
     <div>
       <Header course={course}/>
