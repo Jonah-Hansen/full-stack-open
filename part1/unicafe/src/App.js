@@ -1,15 +1,23 @@
 import { useState } from 'react'
 
 const Statistics = ({good, neutral, bad, total}) => {
+  if (total === 0) {
+    // if all states are 0, dont do statistics.
+    return (
+      <>
+        <p>no feedback given</p>
+      </>
+    )
+  }
   return (
     <>
-    {/* render the value of each state and make some basic calculations */}
-    <p>good {good}</p>
-    <p>neutral {neutral}</p>
-    <p>bad {bad}</p>
-    <p>total {total}</p>
-    <p>average {(good - bad) / total}</p>
-    <p>positive {good * 100 / total}%</p>
+      {/* render the value of each state and make some basic calculations */}
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>total {total}</p>
+      <p>average {(good - bad) / total}</p>
+      <p>positive {good * 100 / total}%</p>
     </>
   )
 }
