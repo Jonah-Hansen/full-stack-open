@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const StatisticsLine = ({text, value}) => <p>{text} {value}</p>
+
 const Statistics = ({good, neutral, bad, total}) => {
   if (total === 0) {
     // if all states are 0, dont do statistics.
@@ -10,17 +12,21 @@ const Statistics = ({good, neutral, bad, total}) => {
     )
   }
   return (
-    <>
+    <div>
       {/* render the value of each state and make some basic calculations */}
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>total {total}</p>
-      <p>average {(good - bad) / total}</p>
-      <p>positive {good * 100 / total}%</p>
-    </>
+      <StatisticsLine text='good' value={good}/>
+      <StatisticsLine text='neutral' value={neutral}/>
+      <StatisticsLine text='bad' value={bad}/>
+      <StatisticsLine text='total' value={total}/>
+      <StatisticsLine text='average' value={(good - bad) / total}/>
+      <StatisticsLine text='positive' value={String(good * 100 / total) + ' %'}/> 
+    </div>
   )
 }
+
+const Button = ({handler, state, label}) => (
+  <button onClick={() => handler(state + 1)}>{label}</button>
+)
 
 const App = () => {
   //save clicks of each button to its own state
@@ -33,9 +39,10 @@ const App = () => {
     <div>
       <h1>give feedback</h1> 
       {/* render 3 buttons, with even handlers that increase their respective state by 1 */}
-      <button onClick={() => setGood(good + 1)}>Good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
+      <Button handler={setGood} state={good} label='good'/>
+      <Button handler={setNeutral} state={neutral} label='neutral'/>
+      <Button handler={setBad} state={bad} label='bad'/>
+
       <h1>statistics</h1>
       <Statistics good={good} neutral={neutral} bad={bad} total={total}/>
     </div>
