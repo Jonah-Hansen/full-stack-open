@@ -4,6 +4,16 @@ const Button = ({handler, label}) => (
   <button onClick={handler}>{label}</button>
 )
 
+const RenderAnecdote = ({title, anecdote, vote}) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      <h3>{anecdote}</h3>
+      <p>has {vote} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -30,12 +40,25 @@ const App = () => {
     setVotes(newVotes)
   }
 
+  //get the index value of the first highest votes value
+  const highest = votes.indexOf(Math.max(...votes))  
+
   return (
     <div>
-      <h2>{anecdotes[selected]}</h2>
-      <h3>has {votes[selected]} votes</h3>
+      <RenderAnecdote 
+        title='Anecdote of the day' 
+        anecdote={anecdotes[selected]} 
+        vote={votes[selected]}
+      />
+
       <Button handler={handleVotes} label='vote'/>
       <Button handler={handleAnecdotes} label='next anecdote'/>
+
+      <RenderAnecdote 
+        title='Anecdote with most votes' 
+        anecdote={anecdotes[highest]} 
+        vote={votes[highest]}
+      />
     </div>
   )
 
