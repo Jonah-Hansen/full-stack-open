@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import ContactsTable from './components/ContactsTable'
+import NewContactsForm from './components/NewContactForm'
+import Input from './components/Input'
 
 const App = () => {
   // create a piece of state to store list of persons 
@@ -14,6 +16,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
 
   //event handler for form submit. 
   const addName = (event) => {
@@ -50,21 +53,16 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  //store handler referecnes in array to pass them to component easier.
+  const handlers = {handleFilter, addName, handleNameInput, handleNumberInput}
+  let states = {filter, newName, newNumber}
+
   return (
     <div>
       <h2>Phonebook</h2>
-      <p>filter shown with <input value={filter} onChange={handleFilter}/></p>
+      <Input label='filter shown with ' state={states.filter} handler={handlers.handleFilter} />
       <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input value={newName} onChange={handleNameInput}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberInput}/></div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <NewContactsForm handlers={handlers} states={states}/>
       <h2>Numbers</h2>
       <ContactsTable persons={persons} filter={filter}/>
     </div>
