@@ -16,12 +16,20 @@ const App = () => {
   //event handler for form submit. 
   const addName = (event) => {
     event.preventDefault()
-    // knowing we will soon ahve numbers, create a temp   object for storing submitted data
+    // knowing we will soon have numbers, create a temp   object for storing submitted data
     const nameObject = { 
       name: newName
     }
-    setPersons(persons.concat(nameObject))
-    setNewName('')
+
+    // check for duplicates
+    const dupe = persons.filter(person => person.name === newName)
+    if (dupe.length > 0) {
+      alert(`${newName} is already added to phonebook`)
+    } 
+    else {
+      setPersons(persons.concat(nameObject))
+      setNewName('')  
+    }  
   }
 
   // event handler for typing in input field 
