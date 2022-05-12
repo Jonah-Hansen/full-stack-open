@@ -1,5 +1,6 @@
 const Contacts = ({persons}) => {
  return (
+  //  create a table containing each persons name
     <table>
       <tbody>
         {persons.map((person) => 

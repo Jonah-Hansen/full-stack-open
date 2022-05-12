@@ -1,6 +1,7 @@
 import Course from './components/Course'
 
 const App = () => {
+  // define array of course objects
   const courses = [
     {
       id: '1',
@@ -46,6 +47,7 @@ const App = () => {
     }
   ]
 
+  // display each course
   return (
     <div>
       <h1>Web development curriculum</h1>

@@ -1,3 +1,4 @@
+//calculate and display total
 const Total = ({parts}) => {
   const total = parts.reduce((prevNum, part) => prevNum + part.exercises, 0)
   return (

@@ -1,5 +1,6 @@
 import Part from './Part'
 
+// list out each part of the course and its number of exercises
 const Content = ({parts}) => {
   return (
     <>
