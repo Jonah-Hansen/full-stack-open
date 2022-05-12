@@ -4,8 +4,8 @@ const Contacts = ({persons}) => {
     <table>
       <tbody>
         {persons.map((person) => 
-          <tr key={person.name}>
-            <td>{person.name}</td>
+          <tr key={person.id}>
+            <td>{person.name}</td><td>{person.number}</td>
           </tr>
         )}
       </tbody>
