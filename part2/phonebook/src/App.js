@@ -1,22 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import ContactsTable from './components/ContactsTable'
 import NewContactsForm from './components/NewContactForm'
 import Input from './components/Input'
 
 const App = () => {
   // create a piece of state to store list of persons 
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]) 
+  const [persons, setPersons] = useState([]) 
 
   // pieces of state for use with the input fields
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
+  // effect hook to do a get request to the db and save the data to the state on successful request
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => setPersons(response.data))
+   }, [])
 
   //event handler for form submit. 
   const addName = (event) => {
