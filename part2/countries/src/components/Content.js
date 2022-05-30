@@ -1,9 +1,14 @@
 import CountriesList from "./CountriesList"
 import CountryInfo from "./CountryInfo"
 
-const Content = ({countries, filter}) => {
+const Content = ({countries, filter, setFilter}) => {
   //create list of countries matching filter
-  const countriesMatchingFilter = countries.filter(country => country.name.common.toLowerCase().includes(filter.toLowerCase()))
+  let countriesMatchingFilter = countries.filter(country => country.name.common.toLowerCase().includes(filter.toLowerCase()))
+  
+  //event handler for when 'show' button is pressed
+  const buttonHandler = (country) => {
+    setFilter(country.name.common)
+  }
 
   //determine what to show as content
   if (filter === '') {
@@ -33,7 +38,8 @@ const Content = ({countries, filter}) => {
   //show list of matching countries up to 10 max
   else {
     return (
-      <CountriesList countries={countriesMatchingFilter} />
+      <CountriesList countries={countriesMatchingFilter} 
+      buttonHandler={buttonHandler}/>
     )
   }
 }

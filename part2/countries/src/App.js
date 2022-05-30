@@ -25,9 +25,10 @@ const App = () => {
     <>
       <div>
         <Input label='find countries ' state={filter} handler={handleFilter} />
+        <button type='button' onClick={() => setFilter('')}>clear</button>
       </div>
       <div>
-        <Content countries={countries} filter={filter} />
+        <Content countries={countries} filter={filter} setFilter={setFilter} />
       </div>
     </>
   )
