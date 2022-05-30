@@ -9,7 +9,7 @@ const App = () => {
   //piece of state for search filter
   const [filter, setFilter] = useState('')
 
-  // effect hook to do a get request to the db and save the data to the state on successful request
+  // effect hook to do a get request to the countries db and save the data to the state on successful request
   useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
