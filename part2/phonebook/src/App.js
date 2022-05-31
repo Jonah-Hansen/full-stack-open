@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+
+import personService from './services/persons'
 
 import ContactsTable from './components/ContactsTable'
 import NewContactsForm from './components/NewContactForm'
@@ -16,9 +17,9 @@ const App = () => {
 
   // effect hook to do a get request to the db and save the data to the state on successful request
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => setPersons(response.data))
+    personService
+      .getAll()
+      .then(initialPersons => setPersons(initialPersons))
    }, [])
 
   //event handler for form submit. 
@@ -37,12 +38,12 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
     } 
     else {
-      axios
-      .post('http://localhost:3001/persons' , nameObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
-        setNewName('')
-        setNewNumber('') 
+      personService
+        .create(nameObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('') 
       })
     
     }  
