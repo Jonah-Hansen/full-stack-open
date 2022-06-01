@@ -13,10 +13,17 @@ const create = (newObject) => {
   return request.then(response => response.data)
 }
 
+//edit the specified object in the db
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then(response => response.data)
+}
+
 //removed the specified object from the server
 const remove = (id) => {
   axios.delete(`${baseUrl}/${id}`)
 }
-const personService = { getAll, create, remove }
+
+const personService = { getAll, create, update, remove }
 
 export default personService

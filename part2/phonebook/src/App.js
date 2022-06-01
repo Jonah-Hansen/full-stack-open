@@ -28,14 +28,23 @@ const App = () => {
     // create a temp object for storing submitted data
     const nameObject = { 
       name: newName,
-      number: newNumber,
-      //id: persons.length + 1
+      number: newNumber
     }
 
     // check for duplicates
     const dupe = persons.filter(person => person.name === newName)
     if (dupe.length > 0) {
-      alert(`${newName} is already added to phonebook`)
+      //if there is a duplicate, the associated number can be updated
+      if (window.confirm(`${newName} is already added to phonebook. 
+      replace the old number with a new one?`)) {
+        personService
+          .update(dupe[0].id, nameObject)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== dupe[0].id ? person : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     } 
     else {
       personService
