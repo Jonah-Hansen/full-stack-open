@@ -1,8 +1,8 @@
 import ContactsLine from './ContactsLine'
 
-const ContactsTable = ({persons, filter}) => {
+const ContactsTable = ({persons, filter, deleteHandler}) => {
   // initialize personsToShow
-  let personsToShow =[]
+  let personsToShow = []
   // if filter is blank, show all.
   if (filter === '') {
     personsToShow = persons
@@ -17,7 +17,7 @@ const ContactsTable = ({persons, filter}) => {
     <table>
       <tbody>
         {personsToShow.map((person) => 
-          <ContactsLine key={person.id} person={person}/>
+          <ContactsLine key={person.id} person={person} deleteHandler={deleteHandler}/>
         )}
       </tbody>
     </table>

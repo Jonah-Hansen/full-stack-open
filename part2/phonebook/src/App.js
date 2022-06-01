@@ -44,9 +44,17 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('') 
-      })
-    
+        })
     }  
+  }
+
+  //event handler for deleting an entry
+  const deleteHandler = (id) => {
+    const person = persons.filter(person => person.id === id)
+    if (window.confirm(`delete ${person[0].name}?`)) {
+      personService.remove(id)
+      setPersons(persons.filter(person => person.id !== id))
+    }
   }
 
   // event handler for typing in name field 
@@ -73,7 +81,7 @@ const App = () => {
       <h2>add a new</h2>
       <NewContactsForm handlers={handlers} states={states}/>
       <h2>Numbers</h2>
-      <ContactsTable persons={persons} filter={filter}/>
+      <ContactsTable persons={persons} filter={filter} deleteHandler={deleteHandler} />
     </div>
   )
 }
