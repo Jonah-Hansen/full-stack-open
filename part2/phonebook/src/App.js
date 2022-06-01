@@ -5,6 +5,7 @@ import personService from './services/persons'
 import ContactsTable from './components/ContactsTable'
 import NewContactsForm from './components/NewContactForm'
 import Input from './components/Input'
+import Notification from './components/Notification'
 
 const App = () => {
   // create a piece of state to store list of persons 
@@ -14,6 +15,9 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
+  //piece of state for notification info
+  const [notification, setNotification] = useState({message: null, type: null})
 
   // effect hook to do a get request to the db and save the data to the state on successful request
   useEffect(() => {
@@ -43,6 +47,10 @@ const App = () => {
             setPersons(persons.map(person => person.id !== dupe[0].id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
+            setNotification({message: `modified number for ${returnedPerson.name}`, type: 'success'}) 
+          setTimeout(() => {
+            setNotification({message: null, type: null})
+          }, 5000)
           })
       }
     } 
@@ -52,7 +60,11 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
-          setNewNumber('') 
+          setNewNumber('')
+          setNotification({message: `added ${returnedPerson.name}`, type: 'success'}) 
+          setTimeout(() => {
+            setNotification({message: null, type: null})
+          }, 5000)
         })
     }  
   }
@@ -86,6 +98,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification.message} type={notification.type} />
       <Input label='filter shown with ' state={states.filter} handler={handlers.handleFilter} />
       <h2>add a new</h2>
       <NewContactsForm handlers={handlers} states={states}/>
