@@ -52,6 +52,13 @@ const App = () => {
             setNotification({message: null, type: null})
           }, 5000)
           })
+          .catch(error => {
+            setNotification({message: `${newName} was already deleted from the server`, type: 'error'})
+            setPersons(persons.filter(n => n.id !== dupe[0].id))
+            setTimeout(() => {
+              setNotification({message: null, type: null})
+            }, 5000)
+          })
       }
     } 
     else {
